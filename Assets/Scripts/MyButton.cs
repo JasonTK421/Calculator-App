@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class NumberButton : MonoBehaviour
+public class MyButton : MonoBehaviour
 {
     [SerializeField] TMP_InputField displayField;
     [SerializeField] TMP_Text text;
 
-    [SerializeField] float num;
+    [SerializeField] string num;
 
     void Start()
     {
@@ -18,7 +18,7 @@ public class NumberButton : MonoBehaviour
         }
         else
         {
-            text.text = num.ToString();
+            text.text = num;
         }
     }
 
