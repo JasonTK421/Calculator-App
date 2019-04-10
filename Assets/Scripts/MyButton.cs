@@ -5,21 +5,20 @@ using TMPro;
 
 public class MyButton : MonoBehaviour
 {
-    [SerializeField] TMP_InputField displayField;
-    [SerializeField] TMP_Text text;
-
-    [SerializeField] string num;
-
     static string STAR = "*";
     static string X = "x";
 
+    [SerializeField] TMP_InputField displayField;
+    [SerializeField] TMP_Text text;
+    [SerializeField] string num;
+
+    MyController myController;
+
     void Start()
     {
-        if (!text)
-        {
-            Debug.Log("Please assign an Text to: " + name);
-        }
-        else if (num == STAR)
+        myController = FindObjectOfType<MyController>();
+
+        if (num == STAR)
         {
             text.text = X;
         }
@@ -31,13 +30,35 @@ public class MyButton : MonoBehaviour
 
     public void AddButtonNumToInputField()
     {
-        if (!displayField)
+        if (!CheckLastKeyPressed())
         {
-            Debug.Log("Please assign an inputField to: " + name);
+            if (displayField.text == "0")
+            {
+                displayField.text = "";
+            }
+            displayField.text += num;
+        }
+    }
+
+    public void SetLastKeyPressed()
+    {
+        myController.SetLastKeyPressed(text.text);
+    }
+
+    bool CheckLastKeyPressed()
+    {
+        if ((myController.GetLastKeyPressed() == "/" ||
+            myController.GetLastKeyPressed() == "x" ||
+            myController.GetLastKeyPressed() == "-" ||
+            myController.GetLastKeyPressed() == "+" ||
+            myController.GetLastKeyPressed() == ".") &&
+            myController.GetLastKeyPressed() == text.text)
+        {
+            return true;
         }
         else
         {
-            displayField.text += num;
+            return false;
         }
     }
 }

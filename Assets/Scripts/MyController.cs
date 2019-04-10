@@ -4,11 +4,13 @@ using System.Data;
 using UnityEngine;
 using TMPro;
 
-public class MainController : MonoBehaviour
+public class MyController : MonoBehaviour
 {
     static float ZERO = 0;
 
     [SerializeField] TMP_InputField displayField;
+
+    string lastKeyPressed;
 
     public void EqualButton()
     {
@@ -26,15 +28,11 @@ public class MainController : MonoBehaviour
         return (float)(loDataTable.Rows[0]["Eval"]);
     }
 
+    public string GetLastKeyPressed() { return lastKeyPressed; }
+    public void SetLastKeyPressed(string key) { lastKeyPressed = key; }
+
     public void ClearButton()
     {
-        if (!displayField)
-        {
-            Debug.Log("Please assign an displayField to: " + name);
-        }
-        else
-        {
-            displayField.text = ZERO.ToString();
-        }
+        displayField.text = ZERO.ToString();
     }
 }
