@@ -1,0 +1,8 @@
+Android Calculator app
+
+screen size 1440x2960
+
+Android menu bar top size 84 pixels from top 
+
+Android Navigation bar bottom 168 pxiels from bottom
+ 
