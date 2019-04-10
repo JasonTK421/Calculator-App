@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class MyButton : MonoBehaviour
+public class NumberButton : MonoBehaviour
 {
-    [SerializeField] TMP_InputField inputField;
+    [SerializeField] TMP_InputField displayField;
     [SerializeField] TMP_Text text;
 
     [SerializeField] float num;
@@ -24,13 +24,13 @@ public class MyButton : MonoBehaviour
 
     public void AddButtonNumToInputField()
     {
-        if (!inputField)
+        if (!displayField)
         {
             Debug.Log("Please assign an inputField to: " + name);
         }
         else
         {
-            inputField.text += num;
+            displayField.text += num;
         }
     }
 }
