@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using TMPro;
 
@@ -9,11 +10,21 @@ public class MainController : MonoBehaviour
 
     [SerializeField] TMP_InputField displayField;
 
-    float num1;
-    float num2;
+    public void EqualButton()
+    {
+        float answer = Evaluate(displayField.text);
 
-    public void SetNum1(float tempNum1) { num1 = tempNum1; }
-    public void SetNum2(float tempNum2) { num2 = tempNum2; }
+        displayField.text = answer.ToString();
+    }
+
+    static float Evaluate(string expression)
+    {
+        var loDataTable = new DataTable();
+        var loDataColumn = new DataColumn("Eval", typeof(float), expression);
+        loDataTable.Columns.Add(loDataColumn);
+        loDataTable.Rows.Add(0);
+        return (float)(loDataTable.Rows[0]["Eval"]);
+    }
 
     public void ClearButton()
     {

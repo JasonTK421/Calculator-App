@@ -10,11 +10,18 @@ public class MyButton : MonoBehaviour
 
     [SerializeField] string num;
 
+    static string STAR = "*";
+    static string X = "x";
+
     void Start()
     {
         if (!text)
         {
             Debug.Log("Please assign an Text to: " + name);
+        }
+        else if (num == STAR)
+        {
+            text.text = X;
         }
         else
         {
