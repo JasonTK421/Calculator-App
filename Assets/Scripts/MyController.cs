@@ -6,7 +6,7 @@ using TMPro;
 
 public class MyController : MonoBehaviour
 {
-    static float ZERO = 0;
+    static string ZERO = "0";
 
     [SerializeField] TMP_InputField displayField;
 
@@ -31,8 +31,9 @@ public class MyController : MonoBehaviour
     public string GetLastKeyPressed() { return lastKeyPressed; }
     public void SetLastKeyPressed(string key) { lastKeyPressed = key; }
 
-    public void ClearButton()
+    public void ClearDisplayFieldAndLastKeyPressed()
     {
-        displayField.text = ZERO.ToString();
+        displayField.text = ZERO;
+        lastKeyPressed = "";
     }
 }

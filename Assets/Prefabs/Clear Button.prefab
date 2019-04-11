@@ -116,8 +116,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: ClearButton
+      - m_Target: {fileID: 8813801308597402584, guid: 6807de694660eac468960c7b44a216e6,
+          type: 3}
+        m_MethodName: ClearDisplayFieldAndLastKeyPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

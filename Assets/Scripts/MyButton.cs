@@ -32,10 +32,9 @@ public class MyButton : MonoBehaviour
     {
         if (!CheckLastKeyPressed())
         {
-            if (displayField.text == "0")
-            {
-                displayField.text = "";
-            }
+            // Clear leading 0 
+            if (displayField.text == "0") { displayField.text = ""; }
+
             displayField.text += num;
         }
     }
@@ -47,6 +46,7 @@ public class MyButton : MonoBehaviour
 
     bool CheckLastKeyPressed()
     {
+        // Check for caraters that should not be entered consecutively e.g. (/, x, -, +, .,)
         if ((myController.GetLastKeyPressed() == "/" ||
             myController.GetLastKeyPressed() == "x" ||
             myController.GetLastKeyPressed() == "-" ||
