@@ -72,12 +72,13 @@ public class MyController : MonoBehaviour
             postfix.Add(tempStack.Pop());
         }
 
-        foreach(string item in postfix)
+        foreach (string item in postfix)
         {
             Debug.Log(item);
         }
     }
 
+    // checks if character has precedence over stack
     bool HasPrecedence(string character, string stack)
     {
         int a = AssignValue(character);
@@ -87,9 +88,9 @@ public class MyController : MonoBehaviour
         else { return false; }
     }
 
+    // assign and return value to operators for comparison
     int AssignValue(string myOperator)
     {
-
         switch (myOperator)
         {
             case "-":
