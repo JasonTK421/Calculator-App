@@ -66,16 +66,6 @@ public class MyController : MonoBehaviour
     {
         Stack postfix = new Stack();
         Stack TempStack = new Stack();
-
-        for (int i = 0; i < infix.Count; i++)
-        {
-            if ((string)infix[i] == "(" || (string)infix[i] == ")" ||
-                (string)infix[i] == "*" || (string)infix[i] == "/" ||
-                (string)infix[i] == "+" || (string)infix[i] == "-")
-            {
-                Debug.Log(infix[i - 1]);
-            }
-        }
     }
 
     static float Evaluate(string expression)
