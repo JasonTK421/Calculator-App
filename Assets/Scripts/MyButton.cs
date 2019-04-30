@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[ExecuteInEditMode]
 public class MyButton : MonoBehaviour
 {
     static string STAR = "*";
     static string X = "x";
 
     [SerializeField] TMP_InputField displayField;
+    [SerializeField] TMP_InputField inputField;
     [SerializeField] TMP_Text text;
-    [SerializeField] string num;
+    [SerializeField] string buttonName;
 
     MyController myController;
 
@@ -18,25 +20,44 @@ public class MyButton : MonoBehaviour
     {
         myController = FindObjectOfType<MyController>();
 
-        if (num == STAR)
+        DisplayButtonName();
+    }
+
+    private void DisplayButtonName()
+    {
+        if (buttonName == STAR)
         {
             text.text = X;
         }
         else
         {
-            text.text = num;
+            text.text = buttonName;
         }
     }
 
-    public void AddButtonNumToInputField()
+    public void OperatorButtonFunction()
+    {
+        myController.MoveInputToDisplayArray();
+        AddOperatorToInfixArray();
+        myController.DisplayInfixArray();
+        myController.ClearInputField();
+        SetLastKeyPressed();
+    }
+
+    public void AddNumToInputField()
     {
         if (!CheckLastKeyPressed())
         {
             // Clear leading 0 
-            if (displayField.text == "0") { displayField.text = ""; }
+            if (inputField.text == "0") { inputField.text = ""; }
 
-            displayField.text += num;
+            inputField.text += buttonName;
         }
+    }
+
+    public void AddOperatorToInfixArray()
+    {
+        myController.AddToInfixArray(buttonName);
     }
 
     public void SetLastKeyPressed()
