@@ -23,16 +23,19 @@ public class MyController : MonoBehaviour
         Debug.Log("Last key pressed: " + lastKeyPressed);
     }
 
+    // TODO remove
     public void EqualButton()
     {
         float answer = Evaluate(inputField.text);
         inputField.text = answer.ToString();
     }
 
+    // TODO Move to EqualsSign.cs
     public void SolveProblem()
     {
         MoveInputToDisplayArray();
         inputField.text = "";
+        DisplayInfixArray();
         ArrayList postfixArray = new ArrayList();
         postfixArray = CreatePostfixArray(infixArray);
         foreach(string item in postfixArray)
@@ -43,12 +46,12 @@ public class MyController : MonoBehaviour
         //RunCaculations
     }
 
-    ArrayList CreatePostfixArray(ArrayList expression)
+    ArrayList CreatePostfixArray(ArrayList infixExpression)
     {
         ArrayList postfixArray = new ArrayList();
         Stack tempStack = new Stack();
 
-        foreach(string value in expression)
+        foreach(string value in infixExpression)
         {
             if (!IsOperator(value))
             {
@@ -123,30 +126,25 @@ public class MyController : MonoBehaviour
         }
     }
 
-    public void MoveInputToDisplayArray()
-    {
-        infixArray.Add(inputField.text);
-    }
-
     public void DisplayInfixArray()
     {
         displayField.text = "";
-        foreach(string character in infixArray)
+        foreach(string value in infixArray)
         {
-            displayField.text += character;
+            displayField.text += value;
             displayField.text += " ";
         }
     }
 
     bool IsOperator(string character)
     {
-        if (character == "x" || character == "/" || character == "+" || character == "-")
+        if (character == "x" || character == "/" || character == "+" || character == "-" || character == "(" || character == ")")
         {
             return true;
         }
         return false;
     }
-
+    // TODO remove
     static float Evaluate(string expression)
     {
         var loDataTable = new DataTable();
@@ -158,6 +156,11 @@ public class MyController : MonoBehaviour
 
     public string GetLastKeyPressed() { return lastKeyPressed; }
     public void SetLastKeyPressed(string key) { lastKeyPressed = key; }
+
+    public void MoveInputToDisplayArray()
+    {
+        infixArray.Add(inputField.text);
+    }
 
     public void AddToInfixArray(string value)
     {

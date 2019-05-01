@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MyNumericButton : MyButton
 {
-    public void AddNumToInputField()
+    public void NumericButonFunction()
     {
         if (myController.GetLastKeyPressed() == "=")
         {

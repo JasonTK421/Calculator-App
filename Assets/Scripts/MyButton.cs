@@ -6,7 +6,6 @@ using TMPro;
 [ExecuteInEditMode]
 public class MyButton : MonoBehaviour
 {
-    [SerializeField] TMP_InputField displayField;
     [SerializeField] protected TMP_InputField inputField;
     [SerializeField] protected TMP_Text text;
     [SerializeField] protected string buttonName;
@@ -17,5 +16,22 @@ public class MyButton : MonoBehaviour
     {
         myController = FindObjectOfType<MyController>();
         text.text = buttonName;
+    }
+
+    protected bool LastKeyPressedIsNotOperator()
+    {
+        // Check for charaters that should not be entered consecutively e.g. (/, x, -, +, .,)
+        if (myController.GetLastKeyPressed() != "/" &&
+            myController.GetLastKeyPressed() != "x" &&
+            myController.GetLastKeyPressed() != "-" &&
+            myController.GetLastKeyPressed() != "+" &&
+            myController.GetLastKeyPressed() != ".")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
