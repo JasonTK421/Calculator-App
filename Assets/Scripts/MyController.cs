@@ -7,8 +7,6 @@ using System;
 
 public class MyController : MonoBehaviour
 {
-    static string ZERO = "0";
-    
     [SerializeField] TMP_InputField inputField;
     [SerializeField] TMP_InputField displayField;
 
@@ -20,6 +18,11 @@ public class MyController : MonoBehaviour
         infixArray = new ArrayList();
     }
 
+    void Update()
+    {
+        Debug.Log("Last key pressed: " + lastKeyPressed);
+    }
+
     public void EqualButton()
     {
         float answer = Evaluate(inputField.text);
@@ -29,7 +32,7 @@ public class MyController : MonoBehaviour
     public void SolveProblem()
     {
         MoveInputToDisplayArray();
-        ClearInputField();
+        inputField.text = "";
         ArrayList postfixArray = new ArrayList();
         postfixArray = CreatePostfixArray(infixArray);
         foreach(string item in postfixArray)
@@ -40,23 +43,23 @@ public class MyController : MonoBehaviour
         //RunCaculations
     }
 
-    ArrayList CreatePostfixArray(ArrayList infix)
+    ArrayList CreatePostfixArray(ArrayList expression)
     {
         ArrayList tempPostfixArray = new ArrayList();
         Stack tempStack = new Stack();
 
-        foreach(string item in infix)
+        foreach(string value in expression)
         {
-            if (!IsOperator(item))
+            if (!IsOperator(value))
             {
-                tempPostfixArray.Add(item);
+                tempPostfixArray.Add(value);
             }
             else // Is operator
             {
-                switch (item)
+                switch (value)
                 {
                     case "(":
-                        tempStack.Push(item);
+                        tempStack.Push(value);
                         break;
                     case ")":
                         while(tempStack.Peek().ToString() != "(")
@@ -67,12 +70,12 @@ public class MyController : MonoBehaviour
                         break;
                     default:
                         while(tempStack.Count > 0 && 
-                            //tempStack.Peek().ToString() != "(" && 
-                            HasPrecedence(tempStack.Peek().ToString(), item))
+                            tempStack.Peek().ToString() != "(" && 
+                            HasPrecedence(tempStack.Peek().ToString(), value))
                         {
                             tempPostfixArray.Add(tempStack.Pop());
                         }
-                        tempStack.Push(item);
+                        tempStack.Push(value);
                         break;
                 }
             }
@@ -83,9 +86,9 @@ public class MyController : MonoBehaviour
         }
         
         // TODO remove when no longer needed for debuging
-        foreach (string item in tempPostfixArray)
+        foreach (string value in tempPostfixArray)
         {
-            Debug.Log(item);
+            Debug.Log(value);
         }
 
         return tempPostfixArray;
@@ -93,17 +96,17 @@ public class MyController : MonoBehaviour
     }
 
     // checks if character has precedence over stack / Order of Operations
-    bool HasPrecedence(string character, string stack)
+    bool HasPrecedence(string expressionValue, string stackValue)
     {
-        int a = AssignValueToOperators(character);
-        int b = AssignValueToOperators(stack);
+        int a = AssignPrecedenceValueToOperators(expressionValue);
+        int b = AssignPrecedenceValueToOperators(stackValue);
 
         if (a > b) { return true; }
         else { return false; }
     }
 
     // assign and return value to operators for comparison
-    int AssignValueToOperators(string myOperator)
+    int AssignPrecedenceValueToOperators(string myOperator)
     {
         switch (myOperator)
         {
@@ -137,8 +140,7 @@ public class MyController : MonoBehaviour
 
     bool IsOperator(string character)
     {
-        if (character == "(" || character == ")" || character == "x" ||
-            character == "/" || character == "+" || character == "-")
+        if (character == "x" || character == "/" || character == "+" || character == "-")
         {
             return true;
         }
@@ -157,36 +159,15 @@ public class MyController : MonoBehaviour
     public string GetLastKeyPressed() { return lastKeyPressed; }
     public void SetLastKeyPressed(string key) { lastKeyPressed = key; }
 
-    public void AddToInfixArray(string symbol)
+    public void AddToInfixArray(string value)
     {
-        infixArray.Add(symbol);
+        infixArray.Add(value);
     }
 
-    public void ClearButton()
-    {
-        ClearDisplayField();
-        ClearInputField();
-        ClearLastKeyPressed();
-        ClearInfixArray();
-    }
-
-    public void ClearInfixArray()
-    {
-        infixArray.Clear();
-    }
-
-    public void ClearDisplayField()
+    public void ClearInputDisplayAndInfixArray()
     {
         displayField.text = "";
-    }
-
-    public void ClearInputField()
-    {
-        inputField.text = ZERO;
-    }
-
-    public void ClearLastKeyPressed()
-    {
-        lastKeyPressed = "";
+        inputField.text = "";
+        infixArray.Clear();
     }
 }
