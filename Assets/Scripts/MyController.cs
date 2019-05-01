@@ -45,14 +45,14 @@ public class MyController : MonoBehaviour
 
     ArrayList CreatePostfixArray(ArrayList expression)
     {
-        ArrayList tempPostfixArray = new ArrayList();
+        ArrayList postfixArray = new ArrayList();
         Stack tempStack = new Stack();
 
         foreach(string value in expression)
         {
             if (!IsOperator(value))
             {
-                tempPostfixArray.Add(value);
+                postfixArray.Add(value);
             }
             else // Is operator
             {
@@ -64,7 +64,7 @@ public class MyController : MonoBehaviour
                     case ")":
                         while(tempStack.Peek().ToString() != "(")
                         {
-                            tempPostfixArray.Add(tempStack.Pop());
+                            postfixArray.Add(tempStack.Pop());
                         }
                         tempStack.Pop();
                         break;
@@ -73,7 +73,7 @@ public class MyController : MonoBehaviour
                             tempStack.Peek().ToString() != "(" && 
                             HasPrecedence(tempStack.Peek().ToString(), value))
                         {
-                            tempPostfixArray.Add(tempStack.Pop());
+                            postfixArray.Add(tempStack.Pop());
                         }
                         tempStack.Push(value);
                         break;
@@ -82,16 +82,16 @@ public class MyController : MonoBehaviour
         }
         while(tempStack.Count > 0)
         {
-            tempPostfixArray.Add(tempStack.Pop());
+            postfixArray.Add(tempStack.Pop());
         }
         
         // TODO remove when no longer needed for debuging
-        foreach (string value in tempPostfixArray)
+        foreach (string value in postfixArray)
         {
             Debug.Log(value);
         }
 
-        return tempPostfixArray;
+        return postfixArray;
 
     }
 
