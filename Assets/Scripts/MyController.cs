@@ -20,7 +20,7 @@ public class MyController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Last key pressed: " + lastKeyPressed);
+        //Debug.Log("Last key pressed: " + lastKeyPressed);
     }
 
     // TODO remove
@@ -31,19 +31,70 @@ public class MyController : MonoBehaviour
     }
 
     // TODO Move to EqualsSign.cs
-    public void SolveProblem()
+    public void EqualsSignFunction()
     {
         MoveInputToDisplayArray();
         inputField.text = "";
         DisplayInfixArray();
         ArrayList postfixArray = new ArrayList();
         postfixArray = CreatePostfixArray(infixArray);
-        foreach(string item in postfixArray)
+
+        foreach(string str in postfixArray)
         {
-            inputField.text += item;
-            inputField.text += " ";
+            Debug.Log("Contents of postfixArray: " + str);
         }
-        //RunCaculations
+
+        // run calculation on postfix array
+        inputField.text = SolvePostfixArray(postfixArray);
+    }
+
+    string SolvePostfixArray(ArrayList postfix)
+    {
+        Stack tempStack = new Stack();
+        string operand1;
+        string operand2;
+
+        foreach (string value in postfix)
+        {
+            // if not an operator
+            if (value != "x" && value != "/" && value != "+" && value != "-")
+            {
+                Debug.Log("Operand being pushed to stack: " + value);
+                // add to stack as double
+                tempStack.Push(value);
+            }// else if operator
+            else if (value == "x" || value == "/" || value == "+" || value == "-")
+            {
+                Debug.Log("Operator being used to calculate: " + value);
+                // pop value from stack and place in operand2
+                operand2 = tempStack.Pop().ToString();
+                // pop value from stack and place in operand1
+                operand1 = tempStack.Pop().ToString();
+                // place result on stack
+                tempStack.Push(RunCalculation(operand1, operand2, value));                
+            }
+        }
+        return tempStack.Pop().ToString();
+    }
+
+    double RunCalculation(string operator1, string operator2, string MyOperator)
+    {
+        double num1 = Convert.ToDouble(operator1);
+        double num2 = Convert.ToDouble(operator2);
+
+        switch (MyOperator)
+        {
+            case "x":
+                return num1 * num2;
+            case "/":
+                return num1 / num2;
+            case "+":
+                return num1 + num2;
+            case "-":
+                return num1 - num2;
+            default:
+                return 0;
+        }      
     }
 
     ArrayList CreatePostfixArray(ArrayList infixExpression)
@@ -88,14 +139,7 @@ public class MyController : MonoBehaviour
             postfixArray.Add(tempStack.Pop());
         }
         
-        // TODO remove when no longer needed for debuging
-        foreach (string value in postfixArray)
-        {
-            Debug.Log(value);
-        }
-
         return postfixArray;
-
     }
 
     // checks if character has precedence over stack / Order of Operations
