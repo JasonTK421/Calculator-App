@@ -6,13 +6,16 @@ public class MyOperatorButton : MyButton
 {
     public void OperatorButtonFunction()
     {
-        if (LastKeyPressedIsNotOperator())
+        if (LastKeyPressedIsNumeric())
         {
-            myController.MoveInputToDisplayArray();
+            if (inputField.text != "")
+            {
+                myController.AddToInfixArray(inputField.text);
+            }
             myController.AddToInfixArray(buttonName);
             myController.DisplayInfixArray();
             inputField.text = "";
-            myController.SetLastKeyPressed(text.text);
+            myController.SetLastKeyPressed(buttonName);
         }
     }
 }

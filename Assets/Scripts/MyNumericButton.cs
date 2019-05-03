@@ -8,10 +8,10 @@ public class MyNumericButton : MyButton
     {
         if (myController.GetLastKeyPressed() == "=")
         {
-            myController.ClearInputDisplayAndInfixArray();
+            myController.ClearDisplayInputAndInfixArray();
         }
 
         inputField.text += buttonName;
-        myController.SetLastKeyPressed(text.text);
+        myController.SetLastKeyPressed(buttonName);
     }
 }

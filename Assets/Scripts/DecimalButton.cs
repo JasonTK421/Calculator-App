@@ -8,7 +8,7 @@ public class DecimalButton : MyButton
     {
         if (myController.GetLastKeyPressed() == "=")
         {
-            myController.ClearInputDisplayAndInfixArray();
+            myController.ClearDisplayInputAndInfixArray();
             inputField.text = "0";
         }
 
@@ -20,7 +20,7 @@ public class DecimalButton : MyButton
         if (myController.GetLastKeyPressed() != "." && !InputFieldHasDecimalPoint())
         {
             inputField.text += buttonName;
-            myController.SetLastKeyPressed(text.text);
+            myController.SetLastKeyPressed(buttonName);
         }
     }
 

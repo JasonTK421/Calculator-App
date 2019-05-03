@@ -19,9 +19,9 @@ public class Parentheses : MyButton
 
         // if (openingParenthesis == 0) do nothing
         // if (openingParenthsis == closingParenthesis) do nothing
-        if (openingParenthesis != 0 && openingParenthesis != closingParenthesis && LastKeyPressedIsNotOperator())
+        if (openingParenthesis != 0 && openingParenthesis != closingParenthesis && LastKeyPressedIsNumeric())
         {
-            myController.MoveInputToDisplayArray();
+            myController.AddToInfixArray(inputField.text);
             myController.AddToInfixArray(buttonName);
             myController.DisplayInfixArray();
             inputField.text = "";

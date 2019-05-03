@@ -18,9 +18,9 @@ public class MyButton : MonoBehaviour
         text.text = buttonName;
     }
 
-    protected bool LastKeyPressedIsNotOperator()
+    protected bool LastKeyPressedIsNumeric()
     {
-        // Check for charaters that should not be entered consecutively e.g. (/, x, -, +, .,)
+        // Check for charaters that should not be entered consecutively e.g. (/, x, -, +, .)
         if (myController.GetLastKeyPressed() != "/" &&
             myController.GetLastKeyPressed() != "x" &&
             myController.GetLastKeyPressed() != "-" &&
