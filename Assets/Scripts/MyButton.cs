@@ -34,4 +34,13 @@ public class MyButton : MonoBehaviour
             return false;
         }
     }
+
+    protected bool IsNumeric(string value)
+    {
+        if (value == "x" || value == "/" || value == "+" || value == "-" || value == "." || value == "(" || value == ")")
+        {
+            return false;
+        }
+        return true;
+    }
 }

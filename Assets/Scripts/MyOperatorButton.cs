@@ -6,7 +6,7 @@ public class MyOperatorButton : MyButton
 {
     public void OperatorButtonFunction()
     {
-        if (LastKeyPressedIsNumeric())
+        if (IsNumeric(myController.GetLastKeyPressed()) || myController.GetLastKeyPressed() == ")" )
         {
             if (inputField.text != "")
             {

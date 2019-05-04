@@ -119,16 +119,6 @@ public class EqualsSign : MyButton
                 return 0;
         }
     }
-
-    bool IsNumeric(string value)
-    {
-        if (value == "x" || value == "/" || value == "+" || value == "-" || value == "(" || value == ")")
-        {
-            return false;
-        }
-        return true;
-    }
-
     bool IsOperator(string value)
     {
         if (value == "x" || value == "/" || value == "+" || value == "-" )

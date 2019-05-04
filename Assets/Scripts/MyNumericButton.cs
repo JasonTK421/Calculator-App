@@ -10,6 +10,11 @@ public class MyNumericButton : MyButton
         {
             myController.ClearDisplayInputAndInfixArray();
         }
+        else if (myController.GetLastKeyPressed() == ")")
+        {
+            myController.AddToInfixArray("x");
+            myController.DisplayInfixArray();
+        }
 
         inputField.text += buttonName;
         myController.SetLastKeyPressed(buttonName);

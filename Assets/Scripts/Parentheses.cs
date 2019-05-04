@@ -19,7 +19,8 @@ public class Parentheses : MyButton
 
         // if (openingParenthesis == 0) do nothing
         // if (openingParenthsis == closingParenthesis) do nothing
-        if (openingParenthesis != 0 && openingParenthesis != closingParenthesis && LastKeyPressedIsNumeric())
+        if (openingParenthesis != 0 && openingParenthesis != closingParenthesis && 
+            IsNumeric(myController.GetLastKeyPressed()))
         {
             myController.AddToInfixArray(inputField.text);
             myController.AddToInfixArray(buttonName);
@@ -31,6 +32,10 @@ public class Parentheses : MyButton
 
     public void OpeningParenthesisFunction()
     {
+        if(myController.GetLastKeyPressed() == "=")
+        {
+            myController.ClearDisplayInputAndInfixArray();
+        }
         displayField.text += buttonName;
         myController.AddToInfixArray(buttonName);
         myController.DisplayInfixArray();
